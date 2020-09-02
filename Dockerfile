@@ -18,7 +18,7 @@ ARG BUILD_DATE
 ARG VCS_REF
 ARG VERSION
 
-ENV MONGODB_TOOLS_VERSION 4.2.1-r1
+ENV MONGODB_TOOLS_VERSION 4.2.9-r0
 ENV GOOGLE_CLOUD_SDK_VERSION 276.0.0
 ENV AZURE_CLI_VERSION 2.5.1
 ENV PATH /root/google-cloud-sdk/bin:$PATH
@@ -33,7 +33,9 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.version=$VERSION \
       org.label-schema.schema-version="1.0"
 
-RUN apk add --no-cache ca-certificates tzdata mongodb-tools=${MONGODB_TOOLS_VERSION}
+RUN echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
+
+RUN apk add --no-cache ca-certificates tzdata mongodb-tools@edge
 ADD https://dl.minio.io/client/mc/release/linux-amd64/mc /usr/bin
 RUN chmod u+x /usr/bin/mc
 
