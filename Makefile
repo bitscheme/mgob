@@ -4,7 +4,7 @@ APP_VERSION?=1.1
 
 # build vars
 BUILD_DATE:=$(shell date -u +"%Y-%m-%dT%H:%M:%SZ")
-REPOSITORY:=stefanprodan
+REPOSITORY:=jamesholcomb
 
 #run vars
 CONFIG:=$$(pwd)/test/config
@@ -43,8 +43,7 @@ travis:
 		-LogLevel=info
 
 publish:
-	@echo $(DOCKER_PASS) | docker login -u "$(DOCKER_USER)" --password-stdin
-	@docker tag $(REPOSITORY)/mgob:$(APP_VERSION).$(TRAVIS_BUILD_NUMBER) $(REPOSITORY)/mgob:edge
+	@docker tag $(REPOSITORY)/mgob:$(APP_VERSION) $(REPOSITORY)/mgob:edge
 	@docker push $(REPOSITORY)/mgob:edge
 
 release:
